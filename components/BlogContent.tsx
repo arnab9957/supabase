@@ -9,6 +9,9 @@ interface BlockData {
     code?: string
     url?: string
     caption?: string
+    file?: {
+        url: string
+    }
 }
 
 interface Block {
@@ -40,7 +43,7 @@ export function BlogContent({ content }: BlogContentProps) {
 
                         case "paragraph":
                             return (
-                                <p key={index} className="leading-relaxed" >
+                                <p key={index} className="leading-relaxed text-zinc-700 dark:text-zinc-300" >
                                     {block.data.text}
                                 </p>
                             )
@@ -76,16 +79,18 @@ export function BlogContent({ content }: BlogContentProps) {
 
                         case "code":
                             return (
-                                <pre key={index} className="bg-zinc-800 p-4 rounded overflow-x-auto text-sm" >
+                                <pre key={index} className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded overflow-x-auto text-sm" >
                                     <code>{block.data.code} </code>
                                 </pre>
                             )
 
                         case "image":
+                            const imageUrl = block.data.file?.url || block.data.url
+                            if (!imageUrl) return null
                             return (
                                 <div key={index} className="my-6" >
                                     <img
-                                        src={block.data.url || "/placeholder.svg"}
+                                        src={imageUrl}
                                         alt={block.data.caption || "Blog image"}
                                         className="max-w-full h-auto rounded"
                                     />

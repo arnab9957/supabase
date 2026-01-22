@@ -27,7 +27,7 @@ export default async function BlogPostPage({
     }
 
     return (
-        <main className="min-h-screen bg-zinc-950">
+        <main className="min-h-screen bg-white dark:bg-zinc-950">
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <div className="flex justify-between items-center mb-8">
                     <Link href="/">
@@ -38,9 +38,9 @@ export default async function BlogPostPage({
                     </Link>
                 </div>
 
-                <Card className="p-8 bg-zinc-900 border-zinc-800">
-                    <h1 className="text-4xl font-bold text-emerald-400 mb-4">{post.title}</h1>
-                    <p className="text-zinc-400 mb-8">
+                <Card className="p-8 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">
+                    <h1 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-4">{post.title}</h1>
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-8">
                         {new Date(post.created_at).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "long",
@@ -48,7 +48,7 @@ export default async function BlogPostPage({
                         })}
                     </p>
 
-                    <div className="prose prose-invert max-w-none text-zinc-300">
+                    <div className="prose dark:prose-invert max-w-none text-zinc-700 dark:text-zinc-300">
                         <BlogContent content={post.content} />
                     </div>
                 </Card>
@@ -56,3 +56,5 @@ export default async function BlogPostPage({
         </main>
     )
 }
+
+

@@ -206,20 +206,6 @@ export default function EditorPage() {
                     </h1>
 
                     <div className="flex gap-2">
-                        {mounted && (
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                className="border-zinc-300 dark:border-zinc-700"
-                            >
-                                {theme === "dark" ? (
-                                    <Sun className="h-5 w-5" />
-                                ) : (
-                                    <Moon className="h-5 w-5" />
-                                )}
-                            </Button>
-                        )}
                         <Link href="/">
                             <Button
                                 variant="outline"
