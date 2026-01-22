@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { DeletePostButton } from "./actions/delete-client"
 
 export default async function Home() {
   const supabase = await createClient()
@@ -21,10 +22,10 @@ export default async function Home() {
     .order("created_at", { ascending: false })
 
   return (
-    <main className="min-h-screen bg-zinc-950">
+    <main className="min-h-screen bg-white dark:bg-zinc-950">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-emerald-400">My Blog</h1>
+          <h1 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">My Blog</h1>
           <div className="flex gap-2">
             <Link href="/editor">
               <Button className="bg-emerald-600 hover:bg-emerald-700">New Post</Button>
@@ -40,18 +41,21 @@ export default async function Home() {
         {posts && posts.length > 0 ? (
           <div className="grid gap-4">
             {posts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.id}`}>
-                <Card className="p-6 bg-zinc-900 border-zinc-800 hover:border-emerald-600 transition-colors cursor-pointer">
-                  <h2 className="text-2xl font-bold text-emerald-400 mb-2">{post.title}</h2>
-                  {post.excerpt && <p className="text-zinc-400 mb-4">{post.excerpt}</p>}
-                  <p className="text-sm text-zinc-500">{new Date(post.created_at).toLocaleDateString()}</p>
-                </Card>
-              </Link>
+              <Card key={post.id} className="p-6 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-emerald-600 dark:hover:border-emerald-600 transition-colors">
+                <div className="flex justify-between items-start gap-4">
+                  <Link href={`/blog/${post.id}`} className="flex-1">
+                    <h2 className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">{post.title}</h2>
+                    {post.excerpt && <p className="text-zinc-600 dark:text-zinc-400 mb-4">{post.excerpt}</p>}
+                    <p className="text-sm text-zinc-500 dark:text-zinc-500">{new Date(post.created_at).toLocaleDateString()}</p>
+                  </Link>
+                  <DeletePostButton postId={post.id} />
+                </div>
+              </Card>
             ))}
           </div>
         ) : (
-          <Card className="p-12 bg-zinc-900 border-zinc-800 text-center">
-            <p className="text-zinc-400 mb-4">No posts yet. Create your first one!</p>
+          <Card className="p-12 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-center">
+            <p className="text-zinc-600 dark:text-zinc-400 mb-4">No posts yet. Create your first one!</p>
             <Link href="/editor">
               <Button className="bg-emerald-600 hover:bg-emerald-700">Create Post</Button>
             </Link>
